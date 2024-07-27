@@ -1,0 +1,42 @@
+Scenario
+
+Imagine we are designing a system for a popular social media platform that needs to handle millions of users posting and viewing photos.
+
+Flow of a Typical User Request
+
+1. Single Server:
+                 Initial Setup: At the start, our social media platform runs on a single server. This server handles everything, including user requests, the application logic, and the database. For example, when a user uploads a photo or views their feed, this single server processes the request and stores/retrieves data from the local database.
+
+2. Application & Database Server Separation:
+                                            Improved Setup: As user numbers grow, the single server setup becomes insufficient. We separate the application logic and the database into two different servers. Now, when a user uploads a photo, the application server processes the request and sends it to the database server for storage. Similarly, for viewing the feed, the application server retrieves the data from the database server.
+
+3 Load Balancer + Multiple Application Servers:
+                                               Scalability: With even more users, a single application server can't handle all requests. We introduce a load balancer and multiple application servers. When a user uploads a photo, the load balancer distributes the request to one of the available application servers. This ensures no single server gets overwhelmed. The application server then interacts with the database server.
+o
+
+4 Database Replication:
+                       Reliability: To handle the increased data load and ensure data availability, we implement database replication. There is a master database for write operations (like uploading photos) and multiple slave databases for read operations (like viewing the feed). When a user uploads a photo, the application server writes to the master database. When a user views their feed, the application server reads from a slave database, ensuring faster read times and reducing the load on the master database.
+
+5 Cache:
+        Speed: To further improve performance, we introduce a cache. Frequently accessed data, like a user's most recent feed, is stored in the cache. When a user views their feed, the application server first checks the cache. If the data is in the cache (cache hit), it is quickly returned to the user. If not (cache miss), the server retrieves it from the database and stores it in the cache for future requests.
+
+
+6 Content Delivery Network (CDN):
+                                  Efficiency: For serving static content like photos, CSS files, and JavaScript, we use a CDN. When a user uploads a photo, it is stored on the CDN. When other users view the photo, it is served from the CDN closest to their location, reducing load times and server load.
+
+7 Data Center:
+              Global Reach: To ensure high availability and fast access times for users worldwide, we deploy our infrastructure in multiple data centers (e.g., one in India and one in the US). Users are directed to the nearest data center, improving their experience. If a user in India uploads a photo, it is processed by the servers in the Indian data center. If a user in the US views the photo, it is served from the US data center's CDN.
+
+
+Example Flow
+            User Uploads a Photo:
+                                  The user sends a photo upload request.
+                                   The load balancer directs the request to one of the application servers.
+                                The application server processes the request and stores the photo in the master database.
+                                   The photo is also stored in the CDN for fast access.
+
+           User Views Their Feed:
+                              The user requests to view their feed.
+                              The load balancer directs the request to an application server.
+                              The application server checks the cache for the feed data.
+If found, it quickly returns the data to the user.If not found, it retrieves the data from a slave database, stores it in the cache, and then returns it to the user.The photos in the feed are served from the CDN, ensuring fast load times.
