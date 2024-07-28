@@ -1,1 +1,60 @@
 
+Consistent hashing is a special kind of hashing technique that is designed to distribute data across a set of nodes (like servers or caches) in such a way that the addition or removal of a node does not significantly change the distribution of keys across the nodes. This is particularly useful in distributed systems where nodes can be added or removed frequently.
+
+Key Characteristics:
+
+1. Minimal Disruption: When a node is added or removed, only a small portion of the keys need to be remapped.
+
+2. Uniform Distribution: Keys are evenly distributed across all available nodes.
+
+3. Scalability: Easily handles dynamic changes in the number of nodes.
+
+How Consistent Hashing Works:
+
+1. Hash Ring: Nodes are placed on a circular hash ring based on their hash value.
+
+2. Key Assignment: Each key is hashed and placed on the same hash ring. It is assigned to the first node encountered when moving clockwise on the ring.
+
+3. Node Addition/Removal: When a node is added, only the keys that fall between the new node and its predecessor need to be reassigned. When a node is removed, its keys are reassigned to its successor.
+
+Usage in Load Balancing
+
+In a load balancer, consistent hashing ensures that client requests are distributed evenly across multiple servers and minimizes the impact of adding or removing servers.
+
+Example:
+
+• Initial Setup: Three servers A, B, and C are placed on the hash ring.
+
+• Key Distribution: Requests are hashed and routed to the closest server in the clockwise direction.
+
+• Adding a Server D: Server D is added, and only the keys that map to the new segment between D and its predecessor are reassigned to D.
+
+Removing a Server B: Server B is removed, and its keys are reassigned to its successor, which could be server C or D.
+
+Usage in Database Replication
+Consistent hashing is used in distributed databases to replicate data across multiple nodes efficiently.
+
+Example:
+
+• Replication Setup: Data is stored across multiple database nodes (DB1, DB2, DB3).
+
+• Data Distribution: Each piece of data is hashed and assigned to the closest node in the clockwise direction.
+
+• Adding a Node: When a new database node is added, only a portion of the data needs to be moved to the new node.
+
+Removing a Node: When a database node is removed, its data is redistributed to its successor.
+
+
+Usage in Database Replication
+
+Consistent hashing is used in distributed databases to replicate data across multiple nodes efficiently.
+
+Example:
+
+• Replication Setup: Data is stored across multiple database nodes (DB1, DB2, DB3).
+
+• Data Distribution: Each piece of data is hashed and assigned to the closest node in the clockwise direction.
+
+• Adding a Node: When a new database node is added, only a portion of the data needs to be moved to the new node.
+
+• Removing a Node: When a database node is removed, its data is redistributed to its successor.
