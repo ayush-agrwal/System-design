@@ -1,0 +1,66 @@
+Client Application:
+
+Function: Users interact with the system via a web interface or API.
+Tasks: Submit URLs for shortening and retrieve original URLs.
+
+Load Balancer:
+
+Function: Distributes client requests to multiple instances of the URL Shortener Service.
+Tasks: Ensures high availability and fault tolerance.
+
+URL Shortener Service:
+
+Function: Handles the logic for shortening URLs and retrieving the original URL.
+Tasks:
+Generate a hash of the original URL.
+Encode the hash using Base64 and truncate it to the fixed length (e.g., 7 characters).
+Check Zookeeper for conflicts and handle them if necessary.
+Store the mapping in the database.
+Provide an endpoint to retrieve the original URL from the shortened URL.
+
+Zookeeper Cluster:
+
+Function: Manages distributed coordination and synchronization.
+Tasks:
+Maintain a distributed counter for generating unique shortened URLs.
+Provide configuration management and service discovery.
+Ensure consistency and coordination across multiple instances of the URL Shortener Service.
+
+Database (URL Mappings):
+
+Function: Stores mappings between shortened URLs and original URLs.
+Tasks:
+Store and retrieve URL mappings.
+Handle queries for URL lookups.
+Analytics Service (Optional):
+
+Function: Collects and analyzes traffic data for URLs.
+Tasks:
+Track the number of visits, geographic distribution, referrers, devices used, and browser information.
+Generate reports and insights.
+
+
+Workflow
+Shortening a URL:
+
+Step 1: Client sends a request with the original URL to the URL Shortener Service.
+Step 2: URL Shortener Service generates a hash and encodes it.
+Step 3: Service checks Zookeeper to ensure the hash is unique.
+Step 4: If the hash is unique, the service stores the mapping in the database.
+Step 5: Service returns the shortened URL to the client.
+Retrieving an Original URL:
+
+Step 1: Client sends a request with the shortened URL.
+Step 2: URL Shortener Service queries the database to retrieve the original URL.
+Step 3: Service returns the original URL to the client.
+Handling Analytics (Optional):
+
+Step 1: Analytics Service collects traffic data.
+Step 2: Service processes and analyzes the data.
+Step 3: Generates reports and insights.
+Considerations
+Scalability: Use horizontal scaling for the URL Shortener Service to handle large volumes of requests.
+Consistency: Ensure consistency between Zookeeper and the database.
+Fault Tolerance: Implement redundancy and failover mechanisms for Zookeeper and the database.
+Security: Protect endpoints with authentication and authorization mechanisms.
+Performance: Optimize database queries and use caching to enhance performance.
