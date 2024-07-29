@@ -1,0 +1,48 @@
+The CAP theorem, also known as Brewer's theorem, is a principle in distributed systems that states it is impossible for a distributed system to simultaneously achieve all three of the following properties:
+
+Consistency
+Availability
+Partition Tolerance
+Here’s a detailed explanation of each point:
+
+1. Consistency
+Definition:
+Consistency means that every read operation on the system returns the most recent write. In other words, all nodes in the distributed system see the same data at the same time, and the data is up-to-date across the system.
+
+Explanation:
+If a system is consistent, it ensures that once a write operation is completed, all subsequent read operations will reflect that write. This implies that if you have multiple copies of data, they are synchronized and up-to-date.
+
+Example:
+In a bank transaction system, if a user transfers money from one account to another, all nodes in the system should immediately reflect this change to prevent discrepancies.
+
+2. Availability
+Definition:
+Availability means that every request (read or write) receives a response, even if some of the nodes are down. The system remains operational and responds to all requests, but not necessarily with the most recent data.
+
+Explanation:
+A system that prioritizes availability ensures that the system is always available for read and write operations, even if it means serving potentially outdated or inconsistent data. The system responds to all requests regardless of whether it can guarantee the most recent state of the data.
+
+Example:
+An online shopping site remains accessible for browsing products and placing orders even if some parts of the system are experiencing issues or data is temporarily inconsistent.
+
+3. Partition Tolerance
+Definition:
+Partition Tolerance means that the system continues to operate correctly even when network partitions (communication breakdowns) occur. The system can handle the situation where messages between nodes are lost or delayed due to network failures.
+
+Explanation:
+A system with partition tolerance can still process requests and maintain functionality despite network partitions or communication failures between nodes. This is crucial for distributed systems where network issues are inevitable.
+
+Example:
+If a distributed database system is split into two partitions due to network issues, each partition should still function independently, allowing read and write operations to continue in each partition.
+
+Summary of Trade-offs
+According to the CAP theorem, a distributed system can only achieve two out of the three properties:
+
+CA (Consistency and Availability): The system provides consistent data and is available for operations, but it may not handle network partitions well. If a partition occurs, some parts of the system may become unavailable to maintain consistency.
+
+CP (Consistency and Partition Tolerance): The system provides consistent data and handles network partitions, but it might sacrifice availability. If a partition occurs, some parts of the system may become unavailable to ensure data consistency.
+
+AP (Availability and Partition Tolerance): The system remains available and can handle network partitions, but it might sacrifice consistency. During a partition, different nodes might have slightly outdated or inconsistent data.
+
+In Practice:
+For most large-scale, distributed systems like Facebook, the choice is typically to prioritize Availability and Partition Tolerance (AP) to ensure the system remains operational and responsive even during network issues, while accepting that some degree of data inconsistency may occur temporarily.
