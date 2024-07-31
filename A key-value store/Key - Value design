@@ -48,3 +48,11 @@ Concept:
 Merkle Tree: Use a Merkle Tree to summarize and verify the state of data across replicas. This tree structure allows efficient comparison and synchronization of data.
 Example:
 Node B constructs a Merkle Tree of its data, including user profiles. It periodically sends the tree’s root hash to nodes A and C. If the hashes match, nodes A and C know their data is consistent with node B’s data. If there is a mismatch, nodes A and C will request specific data to reconcile differences.
+
+Putting It All Together
+Partitioning: Distribute user profiles across nodes using consistent hashing.
+Replication: Store copies of user profiles on multiple nodes (primary and replicas).
+Get and Put Operations: Update user profiles on the primary node and read from any node, using quorums for consistency.
+Data Versioning: Track and resolve conflicting updates using version numbers.
+Gossip Protocol: Spread information about updates and failures among nodes.
+Merkle Tree: Verify and reconcile data across nodes efficiently.
