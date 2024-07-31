@@ -1,0 +1,24 @@
+Client Request
+
+The client sends a GET or PUT request to the key-value store.
+Partitioning
+
+The key is hashed to determine the appropriate partition (node).
+Primary Node
+
+The request is routed to the primary node for the determined partition.
+Replication
+
+For PUT requests, the primary node stores the data and propagates the update to replica nodes.
+Data Versioning
+
+Updates are versioned to manage and resolve conflicts.
+Gossip Protocol
+
+Nodes exchange information about data updates and failures periodically.
+Merkle Tree
+
+Nodes use Merkle Trees to verify data consistency and reconcile discrepancies.
+Client Response
+
+For GET requests, data is retrieved from the primary or any replica node, ensuring eventual consistency.
