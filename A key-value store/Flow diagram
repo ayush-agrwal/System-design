@@ -1,0 +1,44 @@
+Client Request
+     |
+     v
+  +----------------+
+  | Partitioning   |<---+
+  | (Hash Key)     |    |
+  +----------------+    |
+     |                 |
+     v                 |
+  +----------------+    |
+  | Primary Node   |    |
+  | (Store Data)   |    |
+  +----------------+    |
+     |                 |
+     |                 |
+     v                 |
+  +----------------+    |
+  | Replication    |    |
+  | (Update Replicas)|  |
+  +----------------+    |
+     |                 |
+     v                 |
+  +----------------+    |
+  | Data Versioning|    |
+  | (Versioning)   |    |
+  +----------------+    |
+     |                 |
+     v                 |
+  +----------------+    |
+  | Gossip Protocol|    |
+  | (State Exchange)|   |
+  +----------------+    |
+     |                 |
+     v                 |
+  +----------------+    |
+  | Merkle Tree    |    |
+  | (Consistency)  |    |
+  +----------------+    |
+     |                 |
+     v                 |
+  +----------------+
+  | Client Response |
+  | (Read Data)     |
+  +----------------+
