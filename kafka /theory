@@ -1,0 +1,90 @@
+Kafka Architecture Flow Diagram
+Components:
+
+Producer
+Consumer
+Consumer Group
+Topic
+Partition
+Offset
+Broker
+Cluster
+Zookeeper
+
+Producer --> Broker (Kafka Server)
+                |
+                v
+            Topic (Named)
+            /       \
+           /         \
+        Partition   Partition
+        /    \        /    \
+       v      v      v      v
+     Offset  Offset Offset  Offset
+
+Consumer Group --> Consumer
+   |                 |
+   v                 v
+   Consumer           Consumer
+
+Cluster (Group of Brokers)
+    |
+    v
+ Zookeeper (Coordination)
+
+
+Key Concepts
+Producer:
+
+Sends messages to Kafka topics.
+Broker:
+
+Kafka server that stores messages. Each broker is a part of a Kafka cluster.
+Topic:
+
+A category or feed name to which records are sent. Each topic can have multiple partitions.
+Partition:
+
+A topic is divided into partitions to allow parallel processing. Each partition stores a subset of the topic's messages. Partitions are distributed across brokers in the cluster.
+Offset:
+
+A unique identifier for each message within a partition. Consumers use offsets to keep track of which messages they have processed.
+Consumer:
+
+Reads messages from Kafka topics. Consumers can be part of one or more consumer groups.
+Consumer Group:
+
+A group of consumers working together to read messages from a topic. Each consumer in a group reads from a unique subset of partitions.
+Cluster:
+
+A group of Kafka brokers working together to provide high availability and fault tolerance.
+Zookeeper:
+
+Manages and coordinates Kafka brokers. It helps in leader election, cluster metadata, and configuration management.
+Additional Concepts
+Leader and Follower:
+
+Leader: Each partition has one leader broker responsible for all read and write operations. It ensures consistency and handles the actual message storage.
+Follower: Each partition can have multiple follower brokers that replicate the data from the leader. Followers ensure high availability and fault tolerance by maintaining copies of the data.
+Uses of Leader and Follower:
+
+Leader: Handles all read and write requests for its partition. Ensures that messages are consistently written and available.
+Follower: Replicates data from the leader to provide redundancy. If the leader fails, one of the followers can be promoted to leader, ensuring data availability.
+Consumer Group:
+
+Used to balance the load of message consumption across multiple consumers. Each message is processed by only one consumer in the group, and each partition is read by only one consumer within the group.
+Message Structure:
+
+Key: Optional identifier for message routing.
+Value: The actual content of the message.
+Partition: Determines where the message is stored within the topic.
+Topic: The category or feed to which the message belongs.
+Failure Queue and Dead Letter Queue:
+
+Failure Queue: Captures messages that failed to process correctly. Used for retrying or debugging.
+Dead Letter Queue: Stores messages that failed after multiple retries. Used to handle messages that cannot be processed successfully.
+Pull-Based Approach:
+
+Kafka uses a pull-based approach where consumers pull messages from the broker. This allows consumers to control the pace of message consumption and process messages at their own rate.
+
+
