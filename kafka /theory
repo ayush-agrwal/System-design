@@ -2,6 +2,7 @@ Throughput in the context of databases refers to the amount of work or number of
 
 Throughput is typically expressed as the number of transactions, queries, or data rows processed per second, minute, or hour.
 Kafka addresses throughput issues by providing a scalable, high-performance messaging system that efficiently handles large volumes of data.
+Kafka has very high Throughput.
 
 Kafka Architecture Flow Diagram
 Components:
