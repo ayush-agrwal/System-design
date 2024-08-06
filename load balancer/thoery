@@ -1,0 +1,207 @@
+Load balancing distributes network or application traffic across multiple servers. The primary goal is to ensure that no single server becomes overwhelmed, thereby improving performance and reliability.
+
+Types of Load Balancers:
+
+Network Load Balancer (Layer 4 - L4)
+Application Load Balancer (Layer 7 - L7)
+
+1. Network Load Balancer (L4)
+Definition:
+A Network Load Balancer operates at the transport layer (Layer 4) of the OSI model. It routes traffic based on IP address and port information.
+
+[Client] ---> [Network Load Balancer] ---> [Server 1]
+                            |                     |
+                            |                     |
+                            v                     v
+                        [Server 2]            [Server 3]
+Advantages:
+
+High Performance: Handles large volumes of traffic with minimal overhead.
+Protocol Agnostic: Operates with any TCP/UDP traffic.
+Disadvantages:
+
+Limited Awareness: Cannot make decisions based on application data or content.
+
+2. Application Load Balancer (L7)
+Definition:
+An Application Load Balancer operates at the application layer (Layer 7) of the OSI model. It makes routing decisions based on content, such as HTTP headers, URL paths, and more.
+
+
+Advantages:
+
+Content-Based Routing: Makes decisions based on request content, enabling more sophisticated routing.
+Session Persistence: Can maintain session state across requests.
+Disadvantages:
+
+Higher Overhead: More complex than L4, with potentially higher latency.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. Round Robin
+Definition:
+Distributes requests sequentially across all servers in a pool.
+Requests:     R1   R2   R3   R4
+Servers:    [S1] [S2] [S3]
+
+Understanding Load Balancing and Load Balancing Algorithms: A Comprehensive Guide
+Load balancing is a crucial concept in distributed computing, aimed at optimizing resource use, maximizing throughput, minimizing response time, and avoiding overload on any single server. This article explores load balancing, its types, and various algorithms used to distribute requests efficiently.
+
+What is Load Balancing?
+Load balancing distributes network or application traffic across multiple servers. The primary goal is to ensure that no single server becomes overwhelmed, thereby improving performance and reliability.
+
+Types of Load Balancers:
+
+Network Load Balancer (Layer 4 - L4)
+Application Load Balancer (Layer 7 - L7)
+Types of Load Balancers
+1. Network Load Balancer (L4)
+Definition:
+A Network Load Balancer operates at the transport layer (Layer 4) of the OSI model. It routes traffic based on IP address and port information.
+
+Diagram:
+
+plaintext
+Copy code
+[Client] ---> [Network Load Balancer] ---> [Server 1]
+                            |                     |
+                            |                     |
+                            v                     v
+                        [Server 2]            [Server 3]
+Advantages:
+
+High Performance: Handles large volumes of traffic with minimal overhead.
+Protocol Agnostic: Operates with any TCP/UDP traffic.
+Disadvantages:
+
+Limited Awareness: Cannot make decisions based on application data or content.
+2. Application Load Balancer (L7)
+Definition:
+An Application Load Balancer operates at the application layer (Layer 7) of the OSI model. It makes routing decisions based on content, such as HTTP headers, URL paths, and more.
+
+Diagram:
+
+plaintext
+Copy code
+[Client] ---> [Application Load Balancer] ---> [Server 1]
+                            |                     |
+                            |                     |
+                            v                     v
+                        [Server 2]            [Server 3]
+Advantages:
+
+Content-Based Routing: Makes decisions based on request content, enabling more sophisticated routing.
+Session Persistence: Can maintain session state across requests.
+Disadvantages:
+
+Higher Overhead: More complex than L4, with potentially higher latency.
+Load Balancing Algorithms
+Load balancing algorithms determine how incoming traffic is distributed among servers. Here are some commonly used algorithms:
+
+1. Round Robin
+Definition:
+Distributes requests sequentially across all servers in a pool.
+
+Diagram:
+
+plaintext
+Copy code
+Requests:     R1   R2   R3   R4
+Servers:    [S1] [S2] [S3]
+Advantages:
+
+Simplicity: Easy to implement.
+Even Distribution: Distributes traffic evenly.
+Disadvantages:
+
+No Load Awareness: Does not consider server load or capacity.
+
+2. Weighted Round Robin
+Definition:
+Assigns a weight to each server based on its capacity, and distributes requests according to these weights.
+Weights:    2     1     1
+Requests:   R1    R2    R3    R4   (S1 gets twice as many requests)
+Servers:   [S1] [S2] [S3]
+Advantages:
+
+Server Capacity Aware: Accounts for server capabilities.
+Disadvantages:
+
+Static Weights: Weights need manual adjustment.
+. IP Hash
+Definition:
+Routes requests based on the hash of the client’s IP address, ensuring that the same client is consistently directed to the same server.
+
+Client IP:  192.168.1.1  --> Hash --> [S1]
+Client IP:  192.168.1.2  --> Hash --> [S2]
+Advantages:
+
+Session Persistence: Useful for maintaining session state.
+Disadvantages:
+
+Uneven Distribution: Can lead to uneven load if IP addresses aren’t evenly distributed.
+4. Least Connections
+Definition:
+Routes traffic to the server with the fewest active connections.
+Connections:  5       3       2
+Servers:     [S1] [S2] [S3]  --> R1 directed to S3
+
+Advantages:
+
+Dynamic Load Balancing: Adapts to current server load.
+Disadvantages:
+
+Long-Lived Connections: Long-lived connections can skew distribution.
+ Weighted Least Connections
+Definition:
+Combines least connections and weights, directing traffic to servers with the fewest connections and highest weight.
+
+Weights:      3       1       2
+Connections:  4       5       2
+
+Formula for Weighted Least Connections
+Effective Connections=Current Connections/Weight
+
+Effective Connection=Current Connections/Weight
+
+ec = 4 /3 =1.33
+ec = 5/1 =5
+ec=2/2 =1
+Selected Server: Server C  since it has the lowest Effective Connections value.
+
+Advantages:
+
+Balancing Load and Capacity: Accounts for both current connections and server capacity.
+Disadvantages:
+
+Complexity: More complex to manage.
+6. Least Response Time
+Definition:
+Directs traffic to the server with the lowest response time.
+
+Response Times: 100ms  200ms  150ms
+Servers:        [S1] [S2] [S3]  --> R1 directed to S1
+Advantages:
+
+Optimizes Performance: Aims to minimize response time.
+Disadvantages:
+
+Response Time Variability: Can fluctuate with server load
+
+Time to First Byte (TTFB)
+Definition:
+TTFB measures the time between sending a request and receiving the first byte of the response from the server.
+
+Calculation:
+
+Request Sent: The time when the request is sent from the client.
+First Byte Received: The time when the client receives the first byte of the response
+[Client] ---> [Server]
+   |               |
+   |    Request    |
+   |   Sent         |
+   |               |
+   |   TTFB        |
+   |               |
+   |  First Byte   |
+   |   Received    |
+
