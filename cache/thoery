@@ -1,0 +1,16 @@
+for more info. 
+visit :-> https://medium.com/@roopa.kushtagi/caching-in-distributed-systems-a-complete-guide-aa62f7a7b849
+Caching is a technique used to enhance performance and scalability in systems by storing frequently accessed data in a fast-access storage layer, such as memory. This reduces the need to repeatedly fetch the same data from slower data sources like databases.
+
+Types of Caching Components
+Cache Server
+
+Definition: A cache server is a dedicated server that stores cached data and serves it to clients upon request. It is typically used to improve the performance of data retrieval operations by storing frequently accessed data in-memory.
+Example: Redis, Memcached.
+Cache Client
+
+Definition: A cache client interacts with the cache server to retrieve or store data. It is responsible for querying the cache server and handling the cached data.
+Example: Application code that interfaces with Redis or Memcached to store and retrieve data.
+Consistent Hashing
+Definition: Consistent hashing is a technique used to distribute data across a distributed cache cluster efficiently. It ensures that when nodes (servers) are added or removed, only a small fraction of the data needs to be redistributed, minimizing the impact on cache hit rates.
+How it Works: Data is mapped to a hash ring, and each cache server is assigned a position on the ring. Data is stored on the server closest to its hashed position. When a server is added or removed, only the data on the affected portion of the ring needs to be redistributed.
