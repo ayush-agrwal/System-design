@@ -1,0 +1,222 @@
+SOLID is an acronym for five principles of object-oriented design and programming that help to create more understandable, flexible, and maintainable code. 
+The principles are:
+Single Responsibility Principle (SRP)
+Open/Closed Principle (OCP)
+Liskov Substitution Principle (LSP)
+Interface Segregation Principle (ISP)
+Dependency Inversion Principle (DIP)
+
+1. Single Responsibility Principle (SRP)
+Wrong Approach:
+// Wrong approach: A class with multiple responsibilities
+public class UserManager {
+    public void addUser(User user) {
+        // Add user to database
+    }
+
+    public void generateReport() {
+        // Generate a report of users
+    }
+}
+
+
+In this approach, the UserManager class has two responsibilities: managing user data and generating reports. According to SRP, a class should have only one reason to change. Here, if the report generation logic changes, it affects the UserManager class, and vice versa.
+
+Correct approach 
+// Correct approach: Separate responsibilities into different classes
+public class UserRepository {
+    public void addUser(User user) {
+        // Add user to database
+    }
+}
+
+public class UserReportGenerator {
+    public void generateReport() {
+        // Generate a report of users
+    }
+}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ Open/Closed Principle (OCP)
+
+ Wrong Approach:
+ public class DiscountCalculator {
+    public double calculateDiscount(Order order, String discountType) {
+        if (discountType.equals("holiday")) {
+            return order.getTotal() * 0.10;
+        } else if (discountType.equals("seasonal")) {
+            return order.getTotal() * 0.20;
+        }
+        return 0;
+    }
+}
+
+The DiscountCalculator class is not open for extension but closed for modification. To add a new discount type, you must modify the existing code, violating OCP.
+
+Correct approach
+// Strategy interface
+public interface DiscountStrategy {
+    double applyDiscount(Order order);
+}
+
+// Concrete strategies
+public class HolidayDiscount implements DiscountStrategy {
+    public double applyDiscount(Order order) {
+        return order.getTotal() * 0.10;
+    }
+}
+
+public class SeasonalDiscount implements DiscountStrategy {
+    public double applyDiscount(Order order) {
+        return order.getTotal() * 0.20;
+    }
+}
+
+// Context class
+public class DiscountCalculator {
+    private DiscountStrategy discountStrategy;
+
+    public DiscountCalculator(DiscountStrategy discountStrategy) {
+        this.discountStrategy = discountStrategy;
+    }
+
+    public double calculateDiscount(Order order) {
+        return discountStrategy.applyDiscount(order);
+    }
+}
+Here, DiscountCalculator is closed for modification but open for extension through new DiscountStrategy implementations. To add a new discount type, you only need to add a new strategy class.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Wrong Approach:
+
+public class Bird {
+    public void fly() {
+        // Code to make the bird fly
+    }
+}
+
+public class Penguin extends Bird {
+    @Override
+    public void fly() {
+        throw new UnsupportedOperationException("Penguins can't fly!");
+    }
+}
+The Penguin class violates LSP because it inherits from Bird but cannot perform the fly operation. This means that objects of type Penguin cannot be used interchangeably with Bird instances.
+public abstract class Bird {
+    // Common bird properties and methods
+}
+
+public interface Flyable {
+    void fly();
+}
+
+public class Sparrow extends Bird implements Flyable {
+    public void fly() {
+        // Code to make the sparrow fly
+    }
+}
+
+public class Penguin extends Bird {
+    // Penguin-specific methods, no fly() implementation
+}
+
+By introducing the Flyable interface, the Penguin class is no longer forced to implement fly, adhering to LSP. Only classes that can fly implement the Flyable interface.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Interface Segregation Principle (ISP)
+
+ Wrong Approach:
+public interface Worker {
+    void work();
+    void eat();
+}
+
+public class Employee implements Worker {
+    public void work() {
+        // Employee works
+    }
+
+    public void eat() {
+        // Employee eats
+    }
+}
+The Worker interface includes methods work and eat, but not all implementing classes might need all methods. For instance, a Robot class might only need work but not eat.
+
+correct Approach 
+public interface Workable {
+    void work();
+}
+
+public interface Eatable {
+    void eat();
+}
+
+public class Employee implements Workable, Eatable {
+    public void work() {
+        // Employee works
+    }
+
+    public void eat() {
+        // Employee eats
+    }
+}
+
+public class Robot implements Workable {
+    public void work() {
+        // Robot works
+    }
+}
+By splitting the interface into Workable and Eatable, classes only implement the methods they need, adhering to ISP.
+
+____________________________________________________________________________________________________________________________________________________________________________
+
+Dependency Inversion Principle (DIP)
+
+Wrong Approach:
+
+public class LightBulb {
+    public void turnOn() {
+        // Turn on the light bulb
+    }
+}
+
+public class Switch {
+    private LightBulb lightBulb;
+
+    public Switch(LightBulb lightBulb) {
+        this.lightBulb = lightBulb;
+    }
+
+    public void operate() {
+        lightBulb.turnOn();
+    }
+}
+
+The Switch class directly depends on the LightBulb class, violating DIP. Changes in LightBulb might affect Switch.
+
+Correct Approach:
+public interface Switchable {
+    void turnOn();
+}
+
+public class LightBulb implements Switchable {
+    public void turnOn() {
+        // Turn on the light bulb
+    }
+}
+
+public class Switch {
+    private Switchable device;
+
+    public Switch(Switchable device) {
+        this.device = device;
+    }
+
+    public void operate() {
+        device.turnOn();
+    }
+}
+
+By depending on the Switchable interface, the Switch class is decoupled from the LightBulb implementation. It can work with any Switchable device, adhering to DIP.
