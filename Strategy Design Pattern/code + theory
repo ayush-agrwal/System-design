@@ -1,0 +1,78 @@
+The Strategy Design Pattern is a behavioral design pattern that defines a family of algorithms, encapsulates each one, and makes them interchangeable. This pattern allows a client to choose an algorithm from a family of algorithms at runtime.
+
+Suppose 
+Suppose you have a DrawingTool that can draw shapes in different ways. Without the Strategy Pattern, you might use conditional statements to determine how to draw each shape. This approach is inflexible and hard to maintain.
+
+  // Strategy interface
+interface DrawStrategy {
+    void draw();
+}
+
+step 1:
+Implement different drawing strategies as concrete classes.
+
+  // Concrete Strategy 1
+class DrawCircle implements DrawStrategy {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a circle.");
+    }
+}
+
+Step 2:
+// Concrete Strategy 2
+class DrawSquare implements DrawStrategy {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a square.");
+    }
+}
+
+// Concrete Strategy 3
+class DrawTriangle implements DrawStrategy {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a triangle.");
+    }
+}
+
+Step 3:
+
+Create a Shape class that uses the DrawStrategy interface to draw shapes.
+
+// Context class
+class Shape {
+    private DrawStrategy strategy;
+
+    public Shape(DrawStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void setStrategy(DrawStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void draw() {
+        strategy.draw();
+    }
+}
+
+
+Step 4:
+  Use the Shape class with different strategies.
+
+  public class StrategyPatternDemo {
+    public static void main(String[] args) {
+        Shape shape = new Shape(new DrawCircle());
+        shape.draw();  // Output: Drawing a circle.
+
+        shape.setStrategy(new DrawSquare());
+        shape.draw();  // Output: Drawing a square.
+
+        shape.setStrategy(new DrawTriangle());
+        shape.draw();  // Output: Drawing a triangle.
+    }
+}
+
+
+  
