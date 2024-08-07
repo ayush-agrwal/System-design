@@ -1,0 +1,40 @@
+"is a relation" and "has a relation" 
+"Is a relation" (Inheritance): This implies an inheritance relationship. In object-oriented programming, it means that a class (the child) inherits from another class (the parent).
+
+class Animal {
+    void eat() {
+        System.out.println("This animal eats food.");
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Dog barks.");
+    }
+}
+
+
+In this example, Dog "is a" type of Animal.
+
+
+"Has a relation" (Composition): This implies a composition relationship, where a class contains references to other classes. This is often used to model "has a" relationships.
+
+class Engine {
+    void start() {
+        System.out.println("Engine starts.");
+    }
+}
+
+class Car {
+    private Engine engine; // Car "has a" Engine
+
+    Car() {
+        this.engine = new Engine();
+    }
+
+    void startCar() {
+        engine.start();
+        System.out.println("Car starts.");
+    }
+}
+Car "has a" Engine.
