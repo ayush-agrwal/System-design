@@ -49,3 +49,14 @@
 +------+--------------------+                            |
 |                    Client Application                 |
 +-------------------------------------------------------+
+
+
+
+Step 1: The user initiates access to a protected resource through the client application.
+Step 2: The client application redirects the user to the authorization server.
+Step 3: The authorization server requests user authentication and permission.
+Step 4: After granting permission, the authorization server redirects the user back to the client with an authorization code or token.
+Step 5: The client application exchanges the authorization code for an access token by making a request to the authorization server.
+Step 6: The authorization server issues an access token and sends it to the client.
+Step 7: The client uses the access token to request the protected resource from the resource server.
+Step 8: The resource server validates the token and returns the requested resource.
