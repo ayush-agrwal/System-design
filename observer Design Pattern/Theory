@@ -9,3 +9,23 @@ Key Components:
 ##ConcreteSubject: A subclass of the subject that implements the core state and the methods for adding, removing, and notifying observers.
 
 ##ConcreteObserver: A subclass of the observer that implements the update method to reflect changes in the subject's state.
+
+the Observable class is part of the java.util package and is used to create objects that can be observed by other objects. It provides a way to implement the Observer Design Pattern without having to manually manage the list of observers and notify them.
+
+Here are the key methods and functions of the Observable class:
+
+addObserver(Observer o): Adds an observer to the list of observers. Observers are notified when the state of the Observable object changes.
+
+deleteObserver(Observer o): Removes an observer from the list of observers. The observer will no longer receive notifications.
+
+deleteObservers(): Removes all observers from the list. This can be useful for cleanup.
+
+hasChanged(): Returns a boolean indicating whether the Observable object has been changed since the last notification.
+
+clearChanged(): Clears the changed status of the Observable object.
+
+setChanged(): Marks the Observable object as changed. This is necessary to notify observers.
+
+notifyObservers(): Notifies all registered observers if the Observable object has been marked as changed.
+
+notifyObservers(Object arg): Notifies all registered observers with an argument. This allows passing data to observers.
