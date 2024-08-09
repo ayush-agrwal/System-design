@@ -1,0 +1,20 @@
+The Decorator Pattern is a structural design pattern used to add new functionalities to objects dynamically without altering their structure. It provides a flexible alternative to subclassing for extending functionality.
+
+What is the Decorator Pattern?
+In the Decorator Pattern, you use "decorator" classes that wrap an existing object to add new behavior or responsibilities. The key idea is to extend the functionality of objects in a flexible and reusable way.
+
+Key Components of the Decorator Pattern
+Component: An interface or abstract class that defines the basic operations that can be performed.
+ConcreteComponent: A class that implements the Component interface and defines the core functionality.
+Decorator: An abstract class or interface that implements the Component interface and has a reference to a Component object.
+ConcreteDecorator: Classes that extend the Decorator and add additional behavior or responsibilities.
+Why Do We Need the Decorator Pattern?
+Flexible Extension: The Decorator Pattern allows for adding new functionality to objects at runtime without altering their structure. This is more flexible than using inheritance, where changes require creating new subclasses.
+Avoiding Large Hierarchies: Inheritance can lead to complex and rigid class hierarchies. The Decorator Pattern helps avoid this by composing behavior through decorators instead of creating a large number of subclasses.
+Single Responsibility Principle: It helps in adhering to the Single Responsibility Principle by keeping each class focused on a specific aspect of behavior. Each decorator adds a specific feature or enhancement.
+Reusability: Decorators can be reused across different objects, promoting code reusability. Different combinations of decorators can be applied to objects to achieve desired functionality.
+
+Problem Solved by the Decorator Pattern
+Dynamic Behavior Addition: It allows for adding behavior to objects dynamically at runtime, rather than at compile-time, which is often required when the exact set of features to add is not known ahead of time.
+Avoiding Class Explosion: It prevents the need for creating numerous subclasses to combine different functionalities. Instead of creating many subclasses, you can combine multiple decorators.
+Maintaining Open/Closed Principle: The pattern helps in keeping classes open for extension but closed for modification, which is one of the SOLID principles of object-oriented design.
