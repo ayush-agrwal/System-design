@@ -1,0 +1,40 @@
+The Chain of Responsibility design pattern is a behavioral pattern that allows an object to pass a request along a chain of potential handlers until the request is handled. This pattern decouples the sender of a request from its receivers by allowing multiple objects to handle the request without knowing the specific handler.
+
+Handler: Defines an interface for handling requests. It may also define a successor to pass the request to if it cannot handle it.
+
+ConcreteHandler: Implements the handler interface and processes requests it is responsible for. It can also pass the request to its successor if it cannot handle it.
+________________________________________________________________________________________________________________________________________________________________________________
+
+How It Works:
+
+Client: Sends a request to a chain of handlers.
+
+Setup Chain: The handlers are linked together in a chain. Each handler has a reference to its successor in the chain.
+
+Request Handling: When a request is made, it is passed to the first handler in the chain. If the handler can handle the request, it does so; otherwise, it forwards the request to its successor.
+
+Request Processing: Each handler decides either to process the request or to pass it along to the next handler in the chain.
+
+_____________________________________________________________________________________________________________________________________________________________________________
+
+     +--------------------+
+     |     MainClass      |
+     +--------+-----------+
+              |
+              v
++------------------------+
+|  InfoLogProcessor      |
+| (next = DebugLogProcessor) |
++--------+---------------+
+         |
+         v
++------------------------+
+|  DebugLogProcessor     |
+| (next = ErrorLogProcessor) |
++--------+---------------+
+         |
+         v
++------------------------+
+|  ErrorLogProcessor     |
+| (next = null)          |
++------------------------+
