@@ -1,0 +1,9 @@
+Scenario: Image Loading
+Imagine you have a program that needs to display images. Loading a high-resolution image from disk or a network can be time-consuming, so you want to use a placeholder (proxy) that loads the image only when it's actually needed.
+
+Components:
+Subject: This is an interface or an abstract class that defines a method for displaying an image.
+
+RealObject: This is the class that represents the actual image and contains the logic to load and display it.
+
+Proxy: This class controls access to the RealObject. It shows a placeholder image initially and loads the RealObject only when required.
