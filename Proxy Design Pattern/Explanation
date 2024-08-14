@@ -1,0 +1,9 @@
+Subject Interface: Image declares a method display().
+
+RealImage: Represents the actual image. It loads the image from disk when it is created and provides the display() method to show the image.
+
+ProxyImage: Acts as a placeholder for the RealImage. It contains a reference to RealImage and delays loading the real image until the display() method is called.
+
+Client: Uses ProxyImage to interact with the RealImage. The ProxyImage shows the placeholder until the real image needs to be displayed, thus managing resource usage efficiently.
+
+This example demonstrates how the Proxy Design Pattern can manage resources effectively by delaying the creation and loading of the real object until it's actually needed.
